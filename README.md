@@ -1,4 +1,4 @@
-DockerをベースとしたLaravel, MySQL, nginxの開発環境。
+DockerをベースとしたLaravel11, MySQL, nginxの開発環境。
 
 # 環境構築手順
 ## Codeからgit cloneする
