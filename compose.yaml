@@ -18,6 +18,8 @@ services:
       - 8080:80
     volumes:
       - pma-session-store:/sessions
+    networks:
+      - app-network
 
   app:
     build:
@@ -44,6 +46,32 @@ services:
       DB_DATABASE: "${DB_NAME:-laravel_local}"
       DB_USERNAME: "${DB_USER:-tomo_dev}"
       DB_PASSWORD: "${DB_PASS:-swole_code}"
+    networks:
+      - app-network
+
+  db:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    ports:
+      - target: 3306
+        published: ${DB_PORT:-3306}
+        # published: 3306
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: volume
+        source: db-store
+        target: /var/lib/mysql
+        volume:
+          nocopy: true
+    environment:
+      MYSQL_DATABASE: "${DB_NAME:-laravel_local}"
+      MYSQL_USER: "${DB_USER:-tomo_dev}"
+      MYSQL_PASSWORD: "${DB_PASS:-swole_code}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASS:-swole_code}"
+    networks:
+      - app-network
 
   web:
     build:
@@ -64,24 +92,6 @@ services:
         source: ./backend
         target: /work/backend
 
-  db:
-    build:
-      context: .
-      dockerfile: ./infra/docker/mysql/Dockerfile
-    ports:
-      - target: 3306
-        published: ${DB_PORT:-3306}
-        # published: 3306
-        protocol: tcp
-        mode: host
-    volumes:
-      - type: volume
-        source: db-store
-        target: /var/lib/mysql
-        volume:
-          nocopy: true
-    environment:
-      MYSQL_DATABASE: "${DB_NAME:-laravel_local}"
-      MYSQL_USER: "${DB_USER:-tomo_dev}"
-      MYSQL_PASSWORD: "${DB_PASS:-swole_code}"
-      MYSQL_ROOT_PASSWORD: "${DB_PASS:-swole_code}"
+networks:
+  app-network:
+    driver: bridge
