@@ -33,7 +33,7 @@ services:
           nocopy: true
       - type: bind
         source: ./backend
-        target: /work/backend
+        target: /workspace/backend
       - type: volume
         source: psysh-store
         target: /root/.config/psysh
@@ -90,7 +90,7 @@ services:
           nocopy: true
       - type: bind
         source: ./backend
-        target: /work/backend
+        target: /workspace/backend
 
 networks:
   app-network:
