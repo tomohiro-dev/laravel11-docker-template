@@ -8,7 +8,8 @@ volumes:
 
 services:
   pma:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    platform: linux/amd64
     environment:
       PMA_HOST: db
       PMA_USER: "${PMA_USER:-tomo_dev}"
