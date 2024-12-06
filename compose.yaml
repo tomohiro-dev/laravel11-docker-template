@@ -11,8 +11,8 @@ services:
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: db
-      PMA_USER: tomo_dev
-      PMA_PASSWORD: swole_code
+      PMA_USER: "${PMA_USER:-tomo_dev}"
+      PMA_PASSWORD: "${PMA_PASS:-swole_code}"
     ports:
       - 8080:80
     volumes:
