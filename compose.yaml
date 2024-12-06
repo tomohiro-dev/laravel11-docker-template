@@ -1,16 +1,18 @@
 version: "3.9"
+
 volumes:
   php-fpm-socket:
   db-store:
   psysh-store:
   pma-session-store:
+
 services:
   pma:
     image: phpmyadmin/phpmyadmin
     environment:
-      - PMA_HOST=db
-      - PMA_USER=soregashi27
-      - PMA_PASSWORD=soregashidegozaru
+      PMA_HOST: db
+      PMA_USER: tomo_dev
+      PMA_PASSWORD: swole_code
     ports:
       - 8080:80
     volumes:
@@ -19,7 +21,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./infra/docker/php/Dockerfile
+      dockerfile: ./docker/php/Dockerfile
     volumes:
       - type: volume
         source: php-fpm-socket
@@ -35,12 +37,12 @@ services:
         volume:
           nocopy: true
     environment:
-      - DB_CONNECTION=mysql
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=${DB_NAME:-laravel_local}
-      - DB_USERNAME=${DB_USER:-soregashi27}
-      - DB_PASSWORD=${DB_PASS:-soregashidegozaru}
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: "${DB_NAME:-laravel_local}"
+      DB_USERNAME: "${DB_USER:-tomo_dev}"
+      DB_PASSWORD: "${DB_PASS:-swole_code}"
 
   web:
     build:
@@ -78,7 +80,7 @@ services:
         volume:
           nocopy: true
     environment:
-      - MYSQL_DATABASE=${DB_NAME:-laravel_local}
-      - MYSQL_USER=${DB_USER:-soregashi27}
-      - MYSQL_PASSWORD=${DB_PASS:-soregashidegozaru}
-      - MYSQL_ROOT_PASSWORD=${DB_PASS:-soregashidegozaru}
+      MYSQL_DATABASE: "${DB_NAME:-laravel_local}"
+      MYSQL_USER: "${DB_USER:-tomo_dev}"
+      MYSQL_PASSWORD: "${DB_PASS:-swole_code}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASS:-swole_code}"
