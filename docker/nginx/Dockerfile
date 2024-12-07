@@ -1,6 +1,6 @@
-FROM node:14-alpine as node
-FROM nginx:1.20-alpine
-LABEL maintainer="soregashi27"
+FROM node:22-alpine as node
+FROM nginx:1.26-alpine
+LABEL maintainer="tomo_dev"
 SHELL ["/bin/ash", "-oeux", "pipefail", "-c"]
 
 ENV TZ=UTC
@@ -15,6 +15,6 @@ COPY --from=node /usr/local/lib /usr/local/lib
 # yarn command
 COPY --from=node /opt /opt
 # nginx config file
-COPY ./infra/docker/nginx/*.conf /etc/nginx/conf.d/
+COPY ./docker/nginx/*.conf /etc/nginx/conf.d/
 
-WORKDIR /work/backend
+WORKDIR /workspace/backend
