@@ -193,6 +193,19 @@ composer require laravel/ui:1.3.0 --dev
 docker compose down --rmi all --volumes --remove-orphans
 ```
 
+### Nginxの設定テストと再読み込み（現在のNginxプロセスを停止せず、新しい設定を適用）
+```
+docker-compose exec web nginx -t
+docker-compose exec web nginx -s reload
+```
+
+### nginxコンテナの再起動（コンテナ内部のすべてのプロセスがリセットされる）
+```
+docker-compose restart web
+```
+
+### 
+
 
 ### Laravelのキャッシュクリアコマンド
 ```
