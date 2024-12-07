@@ -1,6 +1,6 @@
-FROM node:14-alpine as node
-FROM nginx:1.20-alpine
-LABEL maintainer="soregashi27"
+FROM node:22-alpine as node
+FROM nginx:1.26-alpine
+LABEL maintainer="tomo_dev"
 SHELL ["/bin/ash", "-oeux", "pipefail", "-c"]
 
 ENV TZ=UTC
