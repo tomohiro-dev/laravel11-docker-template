@@ -89,6 +89,19 @@ services:
       - type: bind
         source: ./backend
         target: /workspace/backend
+  
+  frontend:
+    build:
+      context: ./docker/frontend-docker
+      dockerfile: Dockerfile
+    ports: 
+      - "3000:3000"
+    volumes:
+      - ./frontend:/workspace/frontend
+    working_dir: /workspace/frontend
+    command: npm run dev
+    networks:
+      - app-network
 
 networks:
   app-network:
