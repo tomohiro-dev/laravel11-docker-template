@@ -24,16 +24,6 @@ composer install
 php artisan -V
 ```
 
-### php-cs-fixerのライブラリ情報をインストール
-```
-composer require --dev friendsofphp/php-cs-fixer:v2.19.x
-```
-
-バージョンの確認
-```
-./vendor/bin/php-cs-fixer --version
-```
-
 ローカルホストへ接続
 500 | servert errorが出ることを確認する（正しい） `composer install`時は `.env`環境変数ファイルは作成されないので、 
 `.env.example`を元にコピーして作成する。
@@ -43,7 +33,6 @@ composer require --dev friendsofphp/php-cs-fixer:v2.19.x
 cp .env.example .env
 ```
 DBの設定を行う
-
 
 ### アプリケーションキーをつくる
 appコンテナへ移動する
@@ -100,12 +89,6 @@ docker compose app bash
 
 ```
 php artisan -V
-```
-
-・php-cs-fixer
-appコンテナ内で確認
-```
-./vendor/bin/php-cs-fixer --version
 ```
 
 ・MySQL
@@ -201,21 +184,9 @@ app_1  | 172.20.0.3 -  25/Jul/2021:05:48:51 +0000 "GET /index.php" 200
 composer require laravel/ui:1.3.0 --dev
 ```
 
-vue.jsを使った認証機能の追加
-```
-php artisan ui vue --auth
-```
-
 -----------
 
 **よく使うコマンドリスト**
-
-### php-cs-fixerでコード整形する
-```
-./vendor/bin/php-cs-fixer fix -v --diff --diff-format udiff
-```
-差分を表示して整形できる
-
 
 ### Docker Image, Volumes, networkを一括消去
 ```
