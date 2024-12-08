@@ -7,6 +7,7 @@ DockerをベースとしたLaravel11, MySQL, nginxの開発環境。
 ```
 docker compose up -d --build
 ```
+※compose.yamlファイルを改修した場合は都度立ち上げ直すこと）
 
 ## Laravelをインストール
 ### appコンテナに入る
@@ -14,8 +15,11 @@ docker compose up -d --build
 docker compose exec app bash
 ```
 
-Laravelに必要なパッケージをインストール
+todo: このあたり諸々設定が必要なので後ほど書き直す
+
+### Laravelに必要なパッケージをインストール
 ```
+composer self-update→毎回updateするのがめんどいので書き換える
 composer install
 ```
 
@@ -218,4 +222,68 @@ php artisan route:clear
 
 //Viewの部分を実装しているとき
 php artisan view:clear
+```
+
+----
+
+## frontendコンテナについて
+※Next.jsを使用する場合の例
+
+### DockerfileをDocker/で管理、frontend-docker/を作成する
+```
+.
+├── frontend-docker
+│   └── Dockerfile
+├── mysql
+├── nginx
+└── php
+```
+
+Dockerfileのサンプル
+```
+FROM node:22-alpine as node
+WORKDIR /workspace/frontend
+
+# hostのfrontend/package*.jsonをコピーする
+COPY ./frontend/package*.json ./  
+
+RUN npm install
+
+# hostのfrontend dir全体をコピーする
+COPY ../../frontend ./
+
+# 3000は使われやすいので30000にする
+EXPOSE 30000
+CMD ["npm", "run", "dev"]
+```
+
+## frontendコンテナの設定を更新した場合
+### frontendコンテナを停止・削除する
+```
+docker compose stop frontend
+docker compose rm -f frontend
+```
+
+### 再ビルドする
+```
+docker compose build frontend
+```
+
+### 再ビルド後に、変更が反映された状態でコンテナを再立ち上げ
+バックグラウンドで実行する
+```
+docker compose up -d frontend
+```
+
+---
+
+## メモ
+### app server立ち上げ
+```
+php artisan serve --host=0.0.0.0 --port=8000
+```
+
+### ネットワークが正しく作成されているか確認する
+```
+docker network ls
 ```
