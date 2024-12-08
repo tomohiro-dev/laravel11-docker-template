@@ -92,10 +92,10 @@ services:
   
   frontend:
     build:
-      context: ./docker/frontend-docker
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/frontend-docker/Dockerfile
     ports: 
-      - "3000:3000"
+      - "30000:3000"
     volumes:
       - ./frontend:/workspace/frontend
     working_dir: /workspace/frontend
