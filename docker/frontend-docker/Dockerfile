@@ -1,4 +1,5 @@
 FROM node:22-alpine as node
+RUN apk add --no-cache curl
 WORKDIR /workspace/frontend
 COPY ./frontend/package*.json ./  
 # hostのfrontend/package*.jsonをコピーする
