@@ -1,7 +1,9 @@
 FROM node:22-alpine as node
 WORKDIR /workspace/frontend
-COPY package*.json ./
+COPY ./frontend/package*.json ./  
+# hostのfrontend/package*.jsonをコピーする
 RUN npm install
-COPY . .
-EXPOSE 3000
+COPY ./frontend ./
+# hostのfrontend dir全体をコピーする
+EXPOSE 30000
 CMD ["npm", "run", "dev"]
