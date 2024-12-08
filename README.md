@@ -7,7 +7,7 @@ DockerをベースとしたLaravel11, MySQL, nginxの開発環境。
 ```
 docker compose up -d --build
 ```
-※compose.yamlファイルを改修した場合は都度立ち上げ直すこと
+※compose.yamlファイルを改修した場合は都度立ち上げ直すこと）
 
 ## Laravelをインストール
 ### appコンテナに入る
@@ -19,6 +19,7 @@ todo: このあたり諸々設定が必要なので後ほど書き直す
 
 ### Laravelに必要なパッケージをインストール
 ```
+composer self-update→毎回updateするのがめんどいので書き換える
 composer install
 ```
 
@@ -259,4 +260,17 @@ docker compose build frontend
 バックグラウンドで実行する
 ```
 docker compose up -d frontend
+```
+
+---
+
+## メモ
+### app server立ち上げ
+```
+php artisan serve --host=0.0.0.0 --port=8000
+```
+
+### ネットワークが正しく作成されているか確認する
+```
+docker network ls
 ```
