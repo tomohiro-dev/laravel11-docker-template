@@ -4,6 +4,10 @@ volumes:
   psysh-store:
   pma-session-store:
 
+networks:
+  app-network:
+    driver: bridge
+
 services:
   pma:
     image: phpmyadmin/phpmyadmin:latest
@@ -23,6 +27,10 @@ services:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
     volumes:
       - type: volume
         source: php-fpm-socket
@@ -44,8 +52,6 @@ services:
       DB_DATABASE: "${DB_NAME:-laravel_local}"
       DB_USERNAME: "${DB_USER:-tomo_dev}"
       DB_PASSWORD: "${DB_PASS:-swole_code}"
-    networks:
-      - app-network
 
   db:
     build:
@@ -102,7 +108,3 @@ services:
     command: npm run dev
     networks:
       - app-network
-
-networks:
-  app-network:
-    driver: bridge
