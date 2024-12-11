@@ -18,7 +18,10 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'database'),
+    // 'driver' => env('SESSION_DRIVER', 'database'),
+
+    // セッションデータを一時的にメモリへ保存。実装時にここは設定する
+    'driver' => 'array',
 
     /*
     |--------------------------------------------------------------------------
